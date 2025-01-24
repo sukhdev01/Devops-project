@@ -20,7 +20,7 @@ jobs:
 
     - name: get latest image tag from values.yaml file
       run: |
-        IMAGE_TAG=$(yq eval '.image.tag' ../../charts/devops-project/values.yaml)
+        IMAGE_TAG=$(yq eval '.image.tag' ./charts/devops-project/values.yaml)
 
     - name: login to dockerhub
       uses: docker/login-action@v2
@@ -30,7 +30,7 @@ jobs:
 
     - name: build image
       run: |
-        docker build -t sukhdevsingh143/devops-project:$IMAGE_TAG ../../Dockerfile
+        docker build -t sukhdevsingh143/devops-project:$IMAGE_TAG . 
 
     - name: push image
       run: |

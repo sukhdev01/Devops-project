@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted 
 
     steps:
     - name: checkout code
@@ -38,14 +38,6 @@ jobs:
       run: |
         docker push "sukhdevsingh143/devops-project:$IMAGE_TAG" 
 
-    - name: deploy in my laptop KIND cluster
-      uses: appleboy/ssh-action@v0.1.7
-      with:
-        host: ${{ secrets.LOCAL_HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-          chmod +x $HOME/Documents/Devops-project/deploy.sh 
-          cd $HOME/Documents/Devops-project && bash deploy.sh 
-
+    - name: deploy in my laptop KIND cluster using self-hosted runners
+      run: |
+        chmod +x ./deploy.sh & ./deploy.sh 

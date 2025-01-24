@@ -6,11 +6,7 @@ TIMEOUT="300s"
 CHARTNAME="devops-project"
 FILENAME="values.yaml"
 
-WORK_DIR="Documents/Devops-project"
-
-echo -e "Running Heva..."
-cd $HOME/$WORK_DIR/charts/devops-project 
-
+echo -e "Running Heva..." 
 
 echo -e "Rendering helm templates based on supplied values file..."
 helm template -v 5 --namespace $NAMESPACE --logtostderr --debug --values $FILENAME . 2>&1

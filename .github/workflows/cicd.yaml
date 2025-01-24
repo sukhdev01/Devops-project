@@ -1,0 +1,49 @@
+name: CI-CD for my devops-project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v2
+
+    - name: Install yq
+      run: |
+        sudo wget https://github.com/mikefarah/yq/releases/download/v4.13.0/yq_linux_amd64 -O /usr/local/bin/yq
+        sudo chmod +x /usr/local/bin/yq
+
+    - name: get latest image tag from values.yaml file
+      run: |
+        IMAGE_TAG=$(yq eval '.image.tag' ../../charts/devops-project/values.yaml)
+
+    - name: login to dockerhub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: build image
+      run: |
+        docker build -t sukhdevsingh143/devops-project:$IMAGE_TAG ../../Dockerfile
+
+    - name: push image
+      run: |
+        docker push sukhdevsingh143/devops-project:$IMAGE_TAG 
+
+    - name: deploy in my laptop KIND cluster
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.LOCAL_HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          chmod +x $HOME/Documents/Devops-project/deploy.sh 
+          cd $HOME/Documents/Devops-project && bash deploy.sh 
+

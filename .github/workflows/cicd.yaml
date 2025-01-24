@@ -22,6 +22,7 @@ jobs:
       run: |
         IMAGE_TAG=$(yq eval '.image.tag' ./charts/devops-project/values.yaml)
         echo -e "Image tag: $IMAGE_TAG"
+        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
     - name: login to dockerhub
       uses: docker/login-action@v2

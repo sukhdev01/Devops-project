@@ -4,9 +4,9 @@ set -eou pipefail
 NAMESPACE="devops-project"
 TIMEOUT="300s"
 CHARTNAME="devops-project"
-FILE_PATH="./charts/devops-project/values.yaml"
+FILE_PATH="values.yaml"
 
-echo -e "Running Heva..." 
+echo -e "Running Helm..." 
 
 echo -e "Rendering helm templates based on supplied values file..."
 helm template -v 5 --namespace $NAMESPACE --logtostderr --debug --values $FILE_PATH . 2>&1

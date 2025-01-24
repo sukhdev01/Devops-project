@@ -40,4 +40,6 @@ jobs:
 
     - name: deploy in my laptop KIND cluster using self-hosted runners
       run: |
-        chmod +x ./deploy.sh & ./deploy.sh 
+        chmod +x ./deploy.sh
+        cd ./charts/devops-project
+        ../../deploy.sh 

@@ -21,6 +21,7 @@ jobs:
     - name: get latest image tag from values.yaml file
       run: |
         IMAGE_TAG=$(yq eval '.image.tag' ./charts/devops-project/values.yaml)
+        echo -e "Image tag: $IMAGE_TAG"
 
     - name: login to dockerhub
       uses: docker/login-action@v2

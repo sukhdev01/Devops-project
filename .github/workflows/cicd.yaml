@@ -31,11 +31,11 @@ jobs:
 
     - name: build image
       run: |
-        docker build -t sukhdevsingh143/devops-project:${{ IMAGE_TAG }} . 
+        docker build -t "sukhdevsingh143/devops-project:$IMAGE_TAG" . 
 
     - name: push image
       run: |
-        docker push sukhdevsingh143/devops-project:${{ IMAGE_TAG }} 
+        docker push "sukhdevsingh143/devops-project:$IMAGE_TAG" 
 
     - name: deploy in my laptop KIND cluster
       uses: appleboy/ssh-action@v0.1.7

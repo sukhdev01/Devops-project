@@ -1,5 +1,5 @@
 # Devops-project
-Basic devops-project for Appknox
+Basic devops-project (App and Knox part)
 
 
 # Run app using Docker
